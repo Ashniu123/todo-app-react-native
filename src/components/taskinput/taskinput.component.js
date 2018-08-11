@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { startAddItem } from '../../actions/tasks';
 import styles from './taskinput.style';
 
-class Taskinput extends Component {
+export class Taskinput extends Component {
 	constructor(props) {
 		super(props);
 
@@ -22,15 +22,17 @@ class Taskinput extends Component {
 	}
 
 	handleSubmit() {
-		this.props.startAddItem(this.state.text.trim())
-			.then(() => {
-				this.setState({
-					text: ''
+		if (this.state.text.length > 0) {
+			this.props.startAddItem(this.state.text.trim())
+				.then(() => {
+					this.setState({
+						text: ''
+					});
+				})
+				.catch(() => {
+					console.log('Error adding item (component)');
 				});
-			})
-			.catch(() => {
-				console.log('Error adding item (component)');
-			});
+		}
 	}
 
 	render() {

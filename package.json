@@ -4,30 +4,41 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
-    "jsc-android": "^224109.0.0",
+    "jsc-android": "224109.0.0",
     "react": "16.3.1",
     "react-native": "0.55.4",
-    "react-native-elements": "^0.19.1",
-    "react-native-vector-icons": "^4.6.0",
-    "react-redux": "^5.0.7",
-    "realm": "^2.13.0",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "shortid": "^2.2.12"
+    "react-native-elements": "0.19.1",
+    "react-native-vector-icons": "4.6.0",
+    "react-redux": "5.0.7",
+    "realm": "2.13.0",
+    "redux": "4.0.0",
+    "redux-thunk": "2.3.0",
+    "shortid": "2.2.12"
   },
   "devDependencies": {
     "babel-jest": "23.0.1",
     "babel-preset-react-native": "4.0.0",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-to-json": "^3.3.4",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "enzyme-to-json": "3.3.4",
+    "identity-obj-proxy": "3.0.0",
     "jest": "23.1.0",
-    "redux-mock-store": "^1.5.3"
+    "react-dom": "16.3.1",
+    "redux-mock-store": "1.5.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+    }
   }
 }

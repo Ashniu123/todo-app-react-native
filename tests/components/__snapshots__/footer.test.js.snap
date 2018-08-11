@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Footer component correctly 1`] = `
+<Component
+  style={Object {}}
+>
+  <Button
+    accessibilityLabel="Remove completed items"
+    color="#ef5350"
+    onPress={[Function]}
+    title="Remove completed items"
+  />
+</Component>
+`;

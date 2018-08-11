@@ -1,6 +1,5 @@
 import realm from 'realm';
 import shortid from 'shortid';
-// import { Alert } from 'react-native';
 
 import todoSchema from '../db/schema';
 
@@ -10,7 +9,7 @@ export const EDIT_ITEM = 'EDIT_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const REMOVE_COMPLETED = 'REMOVE_ALL';
 
-const fetchData = (data) => ({
+export const fetchData = (data) => ({
 	type: FETCH_DATA,
 	data
 });
@@ -38,7 +37,7 @@ export const startFetchData = () => {
 	}
 };
 
-const addItem = (data) => ({
+export const addItem = (data) => ({
 	type: ADD_ITEM,
 	data
 });
@@ -74,7 +73,7 @@ export const startAddItem = (item) => {
 	}
 };
 
-const editItem = (key) => ({
+export const editItem = (key) => ({
 	type: EDIT_ITEM,
 	key
 });
@@ -101,7 +100,7 @@ export const startEditItem = (key) => {
 	};
 };
 
-const removeItem = (key) => ({
+export const removeItem = (key) => ({
 	type: REMOVE_ITEM,
 	key
 });
@@ -130,7 +129,7 @@ export const startRemoveItem = (key) => {
 	};
 };
 
-const removeCompleted = () => ({
+export const removeCompleted = () => ({
 	type: REMOVE_COMPLETED
 });
 

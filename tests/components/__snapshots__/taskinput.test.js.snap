@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Taskinput component correctly 1`] = `
+<Component
+  style={
+    Object {
+      "backgroundColor": "#CFD8DC",
+      "paddingLeft": 10,
+      "paddingRight": 10,
+    }
+  }
+>
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    onSubmitEditing={[Function]}
+    placeholder="What do you want to do?"
+    selectionColor="#37474F"
+    style={
+      Object {
+        "color": "#455A64",
+      }
+    }
+    underlineColorAndroid="#37474F"
+    value=""
+  />
+</Component>
+`;

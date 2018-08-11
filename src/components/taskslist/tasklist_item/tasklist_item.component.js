@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Animated, Dimensions, PanResponder } from 'react-native';
+import { View, Text, Animated, Dimensions, PanResponder, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import styles from './tasklist_item.style';
@@ -35,7 +35,7 @@ export default class TasklistItem extends Component {
 	}
 
 	handlePanResponderRelease(e, gestureState) {
-		if (gestureState.dx < this.width/3) {
+		if (gestureState.dx < this.width / 3) {
 			Animated.timing(this.state.position, {
 				toValue: { x: 0, y: 0 },
 				duration: 150,
@@ -71,11 +71,14 @@ export default class TasklistItem extends Component {
 					<Text style={styles.itemText}>
 						{this.props.item}
 					</Text>
-					<Icon
-						type='material-community'
-						name={this.props.completed ? 'check-circle' : 'checkbox-blank-circle-outline'}
-						onPress={this.props.onCheckboxChange.bind(this, this.props.id)}
-					/>
+					<TouchableWithoutFeedback
+						hitSlop={{ top: 10, bottom: 10, right: 10, left: 10 }}>
+						<Icon
+							type='material-community'
+							name={this.props.completed ? 'check-circle' : 'checkbox-blank-circle-outline'}
+							onPress={this.props.onCheckboxChange.bind(this, this.props.id)}
+						/>
+					</TouchableWithoutFeedback>
 				</View>
 			</Animated.View>
 		</View>

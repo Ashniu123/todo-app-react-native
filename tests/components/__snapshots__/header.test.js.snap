@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header component correctly 1`] = `
+<Component
+  style={
+    Object {
+      "backgroundColor": "#42A5F5",
+      "height": 40,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "alignSelf": "center",
+        "color": "white",
+        "fontSize": 20,
+      }
+    }
+  >
+    Todo List
+  </Text>
+</Component>
+`;

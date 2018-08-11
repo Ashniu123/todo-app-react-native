@@ -1,6 +1,6 @@
 import { FETCH_DATA, ADD_ITEM, EDIT_ITEM, REMOVE_ITEM, REMOVE_COMPLETED } from '../actions/tasks';
 
-const initialState = { data: [] };
+export const initialState = { data: [] };
 
 export default (state = initialState, action) => {
 	let data = null;
