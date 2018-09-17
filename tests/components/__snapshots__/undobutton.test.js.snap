@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render UndoButton component correctly 1`] = `""`;
+
+exports[`should render UndoButton component correctly 2`] = `
+<withAnimatable(Component)
+  animation="fadeInUp"
+  delay={0}
+  direction="normal"
+  duration={500}
+  iterationCount={1}
+  iterationDelay={0}
+  onAnimationBegin={[Function]}
+  onAnimationEnd={[Function]}
+  onTransitionBegin={[Function]}
+  onTransitionEnd={[Function]}
+  useNativeDriver={false}
+>
+  <Button
+    accessibilityLabel="Undo"
+    color="#606060"
+    onPress={[Function]}
+    title="UNDO"
+  />
+</withAnimatable(Component)>
+`;

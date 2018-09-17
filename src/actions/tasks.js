@@ -8,6 +8,7 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const REMOVE_COMPLETED = 'REMOVE_ALL';
+export const RESTORE_STATE = 'RESTORE_STATE';
 
 export const fetchData = (data) => ({
 	type: FETCH_DATA,
@@ -156,3 +157,31 @@ export const startRemoveCompleted = () => {
 			});
 	};
 };
+
+export const restoreState = () => ({
+	type: RESTORE_STATE
+});
+
+export const startRestoreState = () => {
+	return (dispatch, getState) => {
+		realm.open({ schema: [todoSchema] })
+			.then(realm => {
+				try {
+					const data = getState().tasks.prev;
+					realm.write(() => {
+						console.log('pastdata: ', data);
+						realm.create('Todolist', data);
+						console.log('restored item');
+						dispatch(restoreState());
+					});	
+				} catch(e) {
+					console.log('Error on restoring state!');
+				} finally {
+					realm.close();
+				}
+			})
+			.catch(err => {
+				console.log('Error Restoring state');
+			});
+	}
+}
