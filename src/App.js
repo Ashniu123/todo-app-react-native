@@ -19,8 +19,6 @@ export default class App extends Component {
   }
 }
 
-(
-  () => {
-    store.dispatch(startFetchData());
-  }
-)();
+(() => {
+  store.dispatch(startFetchData());
+})();
