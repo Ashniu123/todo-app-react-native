@@ -5,14 +5,16 @@ import TasklistItem from '../../src/components/taskslist/tasklist_item/tasklist_
 import tasks from '../fixtures/tasks';
 
 test('should render TasklistItem component correctly', () => {
-	const firstTask = tasks[0];
-	const onCheckboxChange = jest.fn();
-	const wrapper = shallow(<TasklistItem 
-		id={firstTask.key}
-		item={firstTask.item}
-		completed={firstTask.completed}
-		onCheckboxChange={onCheckboxChange}
-	/>);
+  const firstTask = tasks[0];
+  const onCheckboxChange = jest.fn();
+  const wrapper = shallow(
+    <TasklistItem
+      id={firstTask.key}
+      item={firstTask.item}
+      completed={firstTask.completed}
+      onCheckboxChange={onCheckboxChange}
+    />
+  );
 
-	expect(wrapper).toMatchSnapshot();
+  expect(wrapper).toMatchSnapshot();
 });

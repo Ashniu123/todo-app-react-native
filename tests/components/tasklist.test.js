@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { Tasklist } from '../../src/components/taskslist/tasklist.component';
 
 test('should render Tasklist component correctly', () => {
-	const wrapper = shallow(<Tasklist />);
+  const wrapper = shallow(<Tasklist />);
 
-	expect(wrapper).toMatchSnapshot();
+  expect(wrapper).toMatchSnapshot();
 });

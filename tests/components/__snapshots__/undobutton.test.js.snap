@@ -14,6 +14,7 @@ exports[`should render UndoButton component correctly 2`] = `
   onAnimationEnd={[Function]}
   onTransitionBegin={[Function]}
   onTransitionEnd={[Function]}
+  style={Object {}}
   useNativeDriver={false}
 >
   <Button

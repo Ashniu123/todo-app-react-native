@@ -6,15 +6,15 @@ import { Footer } from '../../src/components/footer/footer.component';
 let wrapper, startRemoveCompleted;
 
 beforeEach(() => {
-	startRemoveCompleted = jest.fn();
-	wrapper = shallow(<Footer startRemoveCompleted={startRemoveCompleted}/>);
+  startRemoveCompleted = jest.fn();
+  wrapper = shallow(<Footer startRemoveCompleted={startRemoveCompleted} />);
 });
 
 test('should render Footer component correctly', () => {
-	expect(wrapper).toMatchSnapshot();
+  expect(wrapper).toMatchSnapshot();
 });
 
 test('should remove all completed items on button press', () => {
-	wrapper.find('Button').prop('onPress')();
-	expect(startRemoveCompleted).toHaveBeenCalled();
+  wrapper.find('Button').prop('onPress')();
+  expect(startRemoveCompleted).toHaveBeenCalled();
 });
