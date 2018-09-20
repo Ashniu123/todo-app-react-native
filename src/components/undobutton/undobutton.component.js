@@ -12,11 +12,11 @@ export class UndoButton extends Component {
     super(props);
 
     this.state = {
-      show: false,
-      animation: ''
+      show: false
     };
 
     this.handleOnPress = this.handleOnPress.bind(this);
+    this.showTimeout = null;
   }
 
   componentDidUpdate(prevProps) {
@@ -26,7 +26,8 @@ export class UndoButton extends Component {
           show: true
         },
         () => {
-          setTimeout(() => {
+          this.showTimeout = null;
+          this.showTimeout = setTimeout(() => {
             this.setState({
               show: false
             });

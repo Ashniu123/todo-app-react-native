@@ -7,7 +7,7 @@ import {
   RESTORE_STATE
 } from '../actions/tasks';
 
-export const initialState = { data: [], prev: {} };
+export const initialState = { data: [], prev: [] };
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -39,13 +39,12 @@ export default (state = initialState, action) => {
       };
     }
     case REMOVE_ITEM: {
-      // const prev = JSON.parse(JSON.stringify(state.data));
       const data = state.data.filter((item) => {
         return item.key !== action.key;
       });
       const prev = state.data.filter((item) => {
         return item.key === action.key;
-      })[0];
+      });
       return {
         ...state,
         data,
@@ -53,24 +52,24 @@ export default (state = initialState, action) => {
       };
     }
     case REMOVE_COMPLETED: {
-      // const prev = JSON.parse(JSON.stringify(state.data));
       const data = state.data.filter((item) => {
         return item.completed !== true;
       });
-      return {
-        ...state,
-        data
-        // prev
-      };
-    }
-    case RESTORE_STATE: {
-      // const data = JSON.parse(JSON.stringify(state.prev));
-      const prevData = JSON.parse(JSON.stringify(state.prev));
-      const data = [...state.data, prevData];
+      const prev = state.data.filter((item) => {
+        return item.completed === true;
+      });
       return {
         ...state,
         data,
-        prev: {}
+        prev
+      };
+    }
+    case RESTORE_STATE: {
+      const data = [...state.data, ...state.prev];
+      return {
+        ...state,
+        data,
+        prev: initialState.prev
       };
     }
     default:

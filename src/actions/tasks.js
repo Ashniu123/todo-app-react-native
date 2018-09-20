@@ -2,6 +2,7 @@ import realm from 'realm';
 import shortid from 'shortid';
 
 import todoSchema from '../db/schema';
+const DBName = 'Todolist';
 
 export const FETCH_DATA = 'FETCH_DATA';
 export const ADD_ITEM = 'ADD_ITEM';
@@ -20,23 +21,27 @@ export const startFetchData = () => {
     realm
       .open({ schema: [todoSchema] })
       .then((realm) => {
-        let fetchedData = realm.objects('Todolist'),
-          data = [];
-        if (fetchedData.length !== 0) {
-          for (let item of fetchedData) {
+        try {
+          const fetchedData = realm.objects(DBName);
+          const data = [];
+          for (let i = 0; i < fetchedData.length; i += 1) {
+            const item = fetchedData[i];
             data.push({
               key: item.key,
               item: item.item,
               completed: item.completed
             });
           }
+          console.log(data);
+          dispatch(fetchData(data));
+        } catch (e) {
+          console.log('Error on fetching data');
+        } finally {
+          realm.close();
         }
-        console.log(data);
-        dispatch(fetchData(data));
-        realm.close();
       })
       .catch((err) => {
-        console.log(err);
+        console.log('Error fetching!');
       });
   };
 };
@@ -59,7 +64,7 @@ export const startAddItem = (item) => {
               completed: false
             };
             realm.write(() => {
-              realm.create('Todolist', data);
+              realm.create(DBName, data);
               console.log('created item');
               dispatch(addItem(data));
               resolve();
@@ -88,8 +93,12 @@ export const startEditItem = (key) => {
       .open({ schema: [todoSchema] })
       .then((realm) => {
         try {
+          const itemToUpdate = realm
+            .objects(DBName)
+            .filtered(`key = "${key}"`)
+            .snapshot();
           realm.write(() => {
-            realm.create('Todolist', { key, completed: true }, true);
+            realm.create(DBName, { key, completed: !itemToUpdate.completed }, true);
             console.log('updated item');
             dispatch(editItem(key));
           });
@@ -117,7 +126,7 @@ export const startRemoveItem = (key) => {
       .then((realm) => {
         try {
           realm.write(() => {
-            const itemToDelete = realm.objects('Todolist').filtered(`key = "${key}"`);
+            const itemToDelete = realm.objects(DBName).filtered(`key = "${key}"`);
             realm.delete(itemToDelete);
             console.log('deleted item');
             dispatch(removeItem(key));
@@ -145,7 +154,7 @@ export const startRemoveCompleted = () => {
       .then((realm) => {
         try {
           realm.write(() => {
-            const allCompletedItems = realm.objects('Todolist').filtered(`completed = true`);
+            const allCompletedItems = realm.objects(DBName).filtered('completed = true');
             realm.delete(allCompletedItems);
             console.log('deleted all completed');
             dispatch(removeCompleted());
@@ -172,13 +181,13 @@ export const startRestoreState = () => {
       .open({ schema: [todoSchema] })
       .then((realm) => {
         try {
-          const data = getState().tasks.prev;
-          realm.write(() => {
-            console.log('pastdata: ', data);
-            realm.create('Todolist', data);
-            console.log('restored item');
-            dispatch(restoreState());
-          });
+          const dataToRestore = getState().tasks.prev;
+          realm.beginTransaction();
+          for (let i = 0; i < dataToRestore.length; i += 1) {
+            realm.create(DBName, dataToRestore[i]);
+          }
+          realm.commitTransaction();
+          dispatch(restoreState());
         } catch (e) {
           console.log('Error on restoring state!');
         } finally {
